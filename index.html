@@ -8,55 +8,66 @@
         :root { --orange: #ff6a00; --dark-orange: #e65c00; --bg: #f5f7fa; --text: #333; }
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; background: var(--bg); padding-bottom: 90px; color: var(--text); -webkit-font-smoothing: antialiased; }
         
-        /* Cabeçalho e Banners */
-        .header-app { background: white; padding: 15px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: relative; z-index: 10; }
-        .logo-img { max-height: 50px; width: auto; }
+        /* Ajuste das Imagens para Legibilidade */
+        .banner-wrapper {
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: auto; /* Deixa a altura livre para não achatar o texto */
+            display: block;
+            object-fit: contain; /* Garante que a imagem inteira apareça sem cortes */
+        }
         
-        .banner-container { width: 100%; max-height: 180px; overflow: hidden; }
-        .banner-img { width: 100%; height: auto; display: block; object-fit: cover; }
-        
-        .page-title { background: var(--orange); color: white; padding: 15px; text-align: center; font-size: 16px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+        .page-title { 
+            background: var(--orange); 
+            color: white; 
+            padding: 15px; 
+            text-align: center; 
+            font-size: 16px; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
 
         .container { padding: 15px; max-width: 600px; margin: auto; box-sizing: border-box; }
 
         /* Formulário */
-        .search-box { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        input { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 12px; box-sizing: border-box; font-size: 16px; background: #fdfdfd; transition: 0.3s; }
-        input:focus { border-color: var(--orange); outline: none; box-shadow: 0 0 0 3px rgba(255,106,0,0.1); }
-        button { width: 100%; padding: 16px; background: var(--orange); color: white; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; text-transform: uppercase; transition: 0.3s; box-shadow: 0 4px 12px rgba(255,106,0,0.2); }
-        button:active { transform: scale(0.98); background: var(--dark-orange); }
+        .search-box { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; margin-top: -10px; position: relative; z-index: 5; }
+        input { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 12px; box-sizing: border-box; font-size: 16px; background: #fdfdfd; }
+        button { width: 100%; padding: 16px; background: var(--orange); color: white; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 12px rgba(255,106,0,0.2); }
 
-        /* Estilo dos Cards Profissionais */
-        .resumo-topo { text-align: center; font-weight: bold; color: #555; margin: 10px 0 20px 0; text-transform: uppercase; font-size: 14px; }
-        
-        .card-entrega { background: white; padding: 25px; margin-bottom: 20px; border-radius: 20px; position: relative; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-left: 8px solid var(--orange); }
-        
-        .rota-badge { background: #333; color: white; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
-
-        .field-group { margin-bottom: 15px; }
-        .field-label { font-size: 11px; color: var(--orange); text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; display: block; margin-bottom: 2px; }
-        .field-value { font-size: 15px; color: #222; font-weight: 600; line-height: 1.4; display: block; }
-        .ponto-nome { font-size: 18px; color: var(--dark-orange); font-weight: 800; }
-
-        .btn-gps-link { color: var(--orange); text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; margin-top: 10px; }
+        /* Cards Profissionais */
+        .card-entrega { background: white; padding: 20px; margin-bottom: 15px; border-radius: 18px; box-shadow: 0 6px 15px rgba(0,0,0,0.05); border-left: 6px solid var(--orange); }
+        .rota-badge { background: #333; color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 12px; }
+        .field-label { font-size: 11px; color: var(--orange); text-transform: uppercase; font-weight: 800; display: block; }
+        .field-value { font-size: 15px; color: #222; font-weight: 600; margin-bottom: 10px; display: block; }
+        .ponto-nome { font-size: 17px; color: var(--dark-orange); font-weight: 800; }
+        .btn-gps-link { color: var(--orange); text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; margin-top: 5px; }
 
         /* Barra de Navegação */
         .tab-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; height: 75px; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); border-top: 1px solid #eee; z-index: 100; }
-        .tab-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; color: #a0a0a0; cursor: pointer; font-weight: 600; padding: 10px; transition: 0.3s; }
+        .tab-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; color: #a0a0a0; cursor: pointer; font-weight: 600; }
         .tab-item i { font-style: normal; font-size: 24px; margin-bottom: 4px; }
         .tab-item.active { color: var(--orange); }
 
         .hidden { display: none; }
-        .loader { text-align: center; padding: 30px; color: #666; font-weight: bold; }
+        .loader { text-align: center; padding: 20px; color: #666; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="header-app">
-        <img src="logo.png" alt="SVP Logística" class="logo-img">
-    </div>
-
     <div id="aba-plan">
+        <div class="banner-wrapper">
+            <img src="logo.png" class="banner-img" alt="Banner Planejamento">
+        </div>
         <div class="page-title">Planejamento Completo de Sábado</div>
         <div class="container">
             <div class="search-box">
@@ -68,13 +79,13 @@
     </div>
 
     <div id="aba-fech" class="hidden">
-        <div class="banner-container">
-            <img src="empresa.jpg" alt="Banner SVP" class="banner-img">
+        <div class="banner-wrapper">
+            <img src="empresa.jpg" class="banner-img" alt="Banner Fechamento">
         </div>
-        <div class="page-title">Fechamento de Agencia/Ponto de Coleta</div>
+        <div class="page-title">Fechamento de Agencia/Ponto</div>
         <div class="container">
             <div class="search-box">
-                <input type="text" id="idMotorista2" placeholder="Digite seu ID para Sábado...">
+                <input type="text" id="idMotorista2" placeholder="Digite seu ID de Motorista...">
                 <button onclick="buscarFechamentoSabado()">Consultar meu ID</button>
             </div>
             <div id="resultadoFech"></div>
@@ -107,92 +118,54 @@
         });
     }
 
-    // ABA 1 - PLANEJAMENTO PROFISSIONAL
     async function buscarPlanejamento() {
         const id = document.getElementById('idMotorista1').value.trim();
         const resDiv = document.getElementById('resultadoPlan');
         const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLptCJKIUDiCVR440Z6ZaJxzvRB1WJeCV36OJfnTQ2nBLECWjlZOqslbedcybCY-4cUQSDmNOCEx0U/pub?output=csv&gid=465492226";
-        
         if (!id) return;
-        resDiv.innerHTML = "<div class='loader'>Buscando...</div>";
-
+        resDiv.innerHTML = "<div class='loader'>Buscando informações...</div>";
         try {
             const resp = await fetch(url);
             const data = parseCSV(await resp.text());
             const filtrados = data.filter(row => row["ID do motorista"] === id);
-            
-            if (filtrados.length === 0) {
-                resDiv.innerHTML = "<div class='card-entrega'>ID não encontrado.</div>";
-                return;
-            }
-
-            let html = `<div class="resumo-topo">${filtrados.length} ENTREGAS LOCALIZADAS</div>`;
+            if (filtrados.length === 0) { resDiv.innerHTML = "<div class='card-entrega'>ID não localizado.</div>"; return; }
+            let html = "";
             filtrados.forEach(row => {
                 const end = `${row["ENDEREÇO"]}, ${row["NUMERO"]} - ${row["BAIRRO"]}`;
-                const rota = row["ROTA"] || row["Código da Rota"] || "ROTA NÃO INFORMADA";
-                
-                html += `
-                    <div class="card-entrega">
-                        <div class="rota-badge">ROTA: ${rota}</div>
-                        <div class="field-group">
-                            <span class="field-label">LOJA</span>
-                            <span class="field-value ponto-nome">${row["Nome da Loja"]}</span>
-                        </div>
-                        <div class="field-group">
-                            <span class="field-label">ENDEREÇO COMPLETO</span>
-                            <span class="field-value">${end}</span>
-                        </div>
-                        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(end)}" target="_blank" class="btn-gps-link">📍 Abrir no GPS</a>
-                    </div>`;
+                const rota = row["ROTA"] || row["Código da Rota"] || "SVP-SAB";
+                html += `<div class="card-entrega">
+                    <div class="rota-badge">ROTA: ${rota}</div>
+                    <span class="field-label">LOJA</span><span class="field-value ponto-nome">${row["Nome da Loja"]}</span>
+                    <span class="field-label">ENDEREÇO COMPLETO</span><span class="field-value">${end}</span>
+                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(end)}" target="_blank" class="btn-gps-link">📍 ABRIR NO GPS</a>
+                </div>`;
             });
             resDiv.innerHTML = html;
-        } catch (e) { resDiv.innerHTML = "Erro ao carregar dados."; }
+        } catch (e) { resDiv.innerHTML = "Erro ao carregar."; }
     }
 
-    // ABA 2 - FECHAMENTO (MANTIDA)
     async function buscarFechamentoSabado() {
         const id = document.getElementById('idMotorista2').value.trim();
         const resDiv = document.getElementById('resultadoFech');
         const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLptCJKIUDiCVR440Z6ZaJxzvRB1WJeCV36OJfnTQ2nBLECWjlZOqslbedcybCY-4cUQSDmNOCEx0U/pub?gid=1606207890&single=true&output=csv";
-        
         if (!id) return;
-        resDiv.innerHTML = "<div class='loader'>Buscando...</div>";
-
+        resDiv.innerHTML = "<div class='loader'>Buscando roteiro...</div>";
         try {
             const resp = await fetch(url);
             const data = parseCSV(await resp.text());
             const filtrados = data.filter(row => row["ID do motorista"] === id);
-            
-            if (filtrados.length === 0) {
-                resDiv.innerHTML = "<div class='card-entrega'>ID não encontrado.</div>";
-                return;
-            }
-
-            let html = `<div class="resumo-topo">${filtrados.length} FECHAMENTOS PARA SÁBADO</div>`;
+            if (filtrados.length === 0) { resDiv.innerHTML = "<div class='card-entrega'>ID não localizado.</div>"; return; }
+            let html = "";
             filtrados.forEach(row => {
                 const end = row["Endereço Completo"];
-                const rota = row["ROTA"] || row["Código da Rota"] || "---";
-                
-                html += `
-                    <div class="card-entrega">
-                        <div class="rota-badge">ROTA: ${rota}</div>
-                        <div class="field-group">
-                            <span class="field-label">PONTO</span>
-                            <span class="field-value ponto-nome">${row["Loja / Ponto de Coleta"]}</span>
-                        </div>
-                        <div style="display:flex; gap:10px;">
-                            <div style="flex:1;"><span class="field-label">VISITA</span><span class="field-value">${row["Horário de Visita Programado"] || "---"}</span></div>
-                            <div style="flex:1;"><span class="field-label">FECHA ÀS</span><span class="field-value">${row["Horário de Funcionamento até"] || "---"}</span></div>
-                        </div>
-                        <div class="field-group" style="margin-top:10px;">
-                            <span class="field-label">ENDEREÇO</span>
-                            <span class="field-value">${end}</span>
-                        </div>
-                        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(end)}" target="_blank" class="btn-gps-link">📍 Abrir no GPS</a>
-                        <div style="background:#fff5ed; color:var(--dark-orange); padding:10px; border-radius:10px; text-align:center; font-weight:bold; border:1px dashed var(--orange); margin-top:10px;">
-                            Pacotes: ${row["Pacotes Coletados"] || "---"}
-                        </div>
-                    </div>`;
+                html += `<div class="card-entrega">
+                    <div class="rota-badge">ROTA: ${row["ROTA"] || "FECH"}</div>
+                    <span class="field-label">PONTO</span><span class="field-value ponto-nome">${row["Loja / Ponto de Coleta"]}</span>
+                    <div style="display:flex; gap:10px;"><div style="flex:1;"><span class="field-label">VISITA</span><span class="field-value">${row["Horário de Visita Programado"] || "---"}</span></div><div style="flex:1;"><span class="field-label">FECHA ÀS</span><span class="field-value">${row["Horário de Funcionamento até"] || "---"}</span></div></div>
+                    <span class="field-label">ENDEREÇO</span><span class="field-value">${end}</span>
+                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(end)}" target="_blank" class="btn-gps-link">📍 ABRIR NO GPS</a>
+                    <div style="background:#fff5ed; color:var(--dark-orange); padding:10px; border-radius:10px; text-align:center; font-weight:bold; border:1px dashed var(--orange); margin-top:10px;">Pacotes: ${row["Pacotes Coletados"] || "---"}</div>
+                </div>`;
             });
             resDiv.innerHTML = html;
         } catch (e) { resDiv.innerHTML = "Erro ao carregar."; }
