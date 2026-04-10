@@ -2,190 +2,164 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SVP PLANEJAMENTO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SVP Planejamento</title>
     <style>
-        :root { --laranja: #ff6a00; --cinza: #f4f4f4; }
+        :root { --orange: #ff6a00; --dark-orange: #e65c00; --bg: #f5f7fa; --text: #333; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; background: var(--bg); padding-bottom: 90px; color: var(--text); -webkit-font-smoothing: antialiased; }
         
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--cinza); padding-bottom: 90px; }
+        /* Cabeçalho e Banners */
+        .header-app { background: white; padding: 15px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: relative; z-index: 10; }
+        .logo-img { max-height: 50px; width: auto; }
+        
+        .banner-container { width: 100%; max-height: 180px; overflow: hidden; }
+        .banner-img { width: 100%; height: auto; display: block; object-fit: cover; }
+        
+        .page-title { background: var(--orange); color: white; padding: 15px; text-align: center; font-size: 16px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* Estilo para preenchimento total de um canto ao outro */
-        .header-banner {
-            width: 100%;
-            display: block;
-            margin: 0;
-            padding: 0;
-        }
+        .container { padding: 15px; max-width: 600px; margin: auto; box-sizing: border-box; }
 
-        .header-banner img {
-            width: 100%;
-            height: auto;
-            display: block; /* Remove o espaço branco abaixo da imagem */
-            object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
-        }
-
-        header { 
-            background: var(--laranja); 
-            color: white; 
-            padding: 15px; 
-            text-align: center; 
-            font-size: 1.1rem; 
-            font-weight: bold; 
-            margin-top: 0;
-        }
-
-        .container { padding: 15px; max-width: 600px; margin: auto; }
-
-        /* Estilização dos Inputs e Botões */
-        input { 
-            width: 100%; 
-            padding: 15px; 
-            border-radius: 8px; 
-            border: 1px solid #ccc; 
-            margin-bottom: 15px; 
-            font-size: 16px; 
-            box-sizing: border-box; 
-            background: #fff;
-        }
-
-        button { 
-            width: 100%; 
-            padding: 15px; 
-            background: var(--laranja); 
-            color: white; 
-            border: none; 
-            border-radius: 8px; 
-            font-weight: bold; 
-            font-size: 16px; 
-            cursor: pointer;
-        }
+        /* Formulário */
+        .search-box { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        input { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 12px; box-sizing: border-box; font-size: 16px; background: #fdfdfd; transition: 0.3s; }
+        input:focus { border-color: var(--orange); outline: none; box-shadow: 0 0 0 3px rgba(255,106,0,0.1); }
+        button { width: 100%; padding: 16px; background: var(--orange); color: white; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; text-transform: uppercase; transition: 0.3s; box-shadow: 0 4px 12px rgba(255,106,0,0.2); }
+        button:active { transform: scale(0.98); background: var(--dark-orange); }
 
         /* Resultados */
-        .card { 
-            background: white; 
-            padding: 15px; 
-            border-radius: 10px; 
-            margin-top: 10px; 
-            border-left: 6px solid var(--laranja); 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-        }
+        .resumo-topo { text-align: center; font-weight: bold; color: #555; margin: 10px 0 20px 0; text-transform: uppercase; font-size: 14px; }
+        .card-entrega { background: white; padding: 25px; margin-bottom: 20px; border-radius: 20px; border-left: 8px solid var(--orange); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+        .field-label { font-size: 11px; color: var(--orange); text-transform: uppercase; font-weight: 800; display: block; margin-bottom: 2px; }
+        .field-value { font-size: 15px; color: #222; font-weight: 600; line-height: 1.4; display: block; }
+        .ponto-nome { font-size: 18px; color: var(--dark-orange); font-weight: 800; }
+        .btn-gps-link { color: var(--orange); text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; margin: 15px 0; }
+        .pacotes-tag { background: #fff5ed; color: var(--dark-orange); padding: 15px; border-radius: 12px; text-align: center; font-weight: bold; border: 1px dashed var(--orange); font-size: 16px; }
 
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            background: white; 
-            margin-top: 10px; 
-            border-radius: 8px; 
-            overflow: hidden; 
-        }
+        /* Tabela Aba 1 */
+        .table-res { width: 100%; border-collapse: collapse; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .table-res th { background: #f8f9fa; padding: 15px; text-align: left; font-size: 13px; color: #666; }
+        .table-res td { padding: 15px; border-top: 1px solid #eee; font-size: 14px; }
+        .btn-mapa-sáb { background: var(--orange); color: white; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; }
 
-        th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; font-size: 13px; }
-        th { background: #f8f8f8; }
-
-        /* Barra de Navegação */
-        .tab-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; border-top: 1px solid #ddd; height: 75px; }
-        .tab-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; color: #666; cursor: pointer; font-weight: bold; }
-        .tab-item span { font-size: 20px; margin-bottom: 2px; }
-        .tab-item.active { color: var(--laranja); background: #fff5ed; border-top: 3px solid var(--laranja); }
+        /* Navegação */
+        .tab-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; height: 75px; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); border-top: 1px solid #eee; z-index: 100; }
+        .tab-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; color: #a0a0a0; cursor: pointer; font-weight: 600; }
+        .tab-item i { font-style: normal; font-size: 24px; margin-bottom: 4px; }
+        .tab-item.active { color: var(--orange); }
 
         .hidden { display: none; }
-        .btn-gps { background: var(--laranja); color: white; padding: 6px 10px; border-radius: 4px; text-decoration: none; font-size: 11px; }
+        .loader { text-align: center; padding: 30px; color: #666; }
     </style>
 </head>
 <body>
 
+    <div class="header-app">
+        <img src="logo.png" alt="SVP Logística" class="logo-img">
+    </div>
+
     <div id="aba-plan">
-        <div class="header-banner">
-            <img src="logo.png" alt="Cabeçalho Planejamento">
-        </div>
-        <header>Planejamento Completo de Sábado</header>
+        <div class="page-title">Planejamento Completo de Sábado</div>
         <div class="container">
-            <input type="text" id="id1" placeholder="Digite seu ID...">
-            <button onclick="buscarFechamento()">Consultar meu ID</button>
-            <div id="res1"></div>
+            <div class="search-box">
+                <input type="text" id="idMotorista1" placeholder="Digite seu ID...">
+                <button onclick="buscarPlanejamento()">Consultar meu ID</button>
+            </div>
+            <div id="resultadoPlan"></div>
         </div>
     </div>
 
     <div id="aba-fech" class="hidden">
-        <div class="header-banner">
-            <img src="empresa.jpg" alt="Cabeçalho Fechamentos">
+        <div class="banner-container">
+            <img src="empresa.jpg" alt="Banner" class="banner-img">
         </div>
-        <header>Horários de Fechamentos de Agencia/Ponto de Coleta</header>
+        <div class="page-title">Fechamento de Agencia/Ponto de Coleta</div>
         <div class="container">
-            <input type="text" id="id2" placeholder="Digite seu ID...">
-            <button onclick="buscarFechamento()">Consultar meu ID</button>
-            <div id="res2"></div>
+            <div class="search-box">
+                <input type="text" id="idMotorista2" placeholder="Digite seu ID...">
+                <button onclick="buscarFechamentoSabado()">Consultar meu ID</button>
+            </div>
+            <div id="resultadoFech"></div>
         </div>
     </div>
 
     <nav class="tab-bar">
-        <div class="tab-item active" id="btn1" onclick="nav(1)"><span>📅</span>Planejamento</div>
-        <div class="tab-item" id="btn2" onclick="nav(2)"><span>🏬</span>Fechamentos</div>
+        <div class="tab-item active" id="btnPlan" onclick="switchTab('plan')"><i>📅</i>Planejamento</div>
+        <div class="tab-item" id="btnFech" onclick="switchTab('fech')"><i>🏬</i>Sábado</div>
     </nav>
 
 <script>
-    function nav(n) {
-        document.getElementById('aba-plan').classList.toggle('hidden', n !== 1);
-        document.getElementById('aba-fech').classList.toggle('hidden', n !== 2);
-        document.getElementById('btn1').classList.toggle('active', n === 1);
-        document.getElementById('btn2').classList.toggle('active', n === 2);
+    function switchTab(tab) {
+        document.getElementById('aba-plan').classList.toggle('hidden', tab !== 'plan');
+        document.getElementById('aba-fech').classList.toggle('hidden', tab !== 'fech');
+        document.getElementById('btnPlan').classList.toggle('active', tab === 'plan');
+        document.getElementById('btnFech').classList.toggle('active', tab === 'fech');
         window.scrollTo(0,0);
     }
 
-    const url1 = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLptCJKIUDiCVR440Z6ZaJxzvRB1WJeCV36OJfnTQ2nBLECWjlZOqslbedcybCY-4cUQSDmNOCEx0U/pub?output=csv&gid=465492226";
-    const url2 = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLptCJKIUDiCVR440Z6ZaJxzvRB1WJeCV36OJfnTQ2nBLECWjlZOqslbedcybCY-4cUQSDmNOCEx0U/pub?gid=1606207890&single=true&output=csv";
-
-    let banco1 = [];
-
-    async function init() {
-        try {
-            const r = await fetch(url1);
-            const t = await r.text();
-            const linhas = t.split("\n").map(l => l.split(","));
-            const headers = linhas[0].map(h => h.trim());
-            banco1 = linhas.slice(1).map(l => {
-                let o = {};
-                headers.forEach((h, i) => o[h] = l[i] ? l[i].trim() : "");
-                return o;
-            });
-        } catch(e) {}
-    }
-
-    document.getElementById('id1').addEventListener('input', function() {
-        const id = this.value.trim();
-        const res = document.getElementById('res1');
-        const f = banco1.filter(d => d["ID do motorista"] === id);
-        if(!id || f.length === 0) { res.innerHTML = ""; return; }
-        let h = "<table><tr><th>Loja</th><th>Ação</th></tr>";
-        f.forEach(r => {
-            const local = encodeURIComponent(`${r["ENDEREÇO"]}, ${r["NUMERO"]}`);
-            h += `<tr><td>${r["Nome da Loja"]}</td><td><a href="https://www.google.com/maps/search/?api=1&query=${local}" target="_blank" class="btn-gps">MAPA</a></td></tr>`;
+    function parseCSV(text) {
+        const lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
+        const regex = /,(?=(?:(?:[^"]*"){2})*[^"]*$)/;
+        const headers = lines[0].split(regex).map(h => h.replace(/^"|"$/g, '').trim());
+        return lines.slice(1).map(line => {
+            const cols = line.split(regex).map(c => c.replace(/^"|"$/g, '').trim());
+            let obj = {};
+            headers.forEach((h, i) => obj[h] = cols[i] || "");
+            return obj;
         });
-        res.innerHTML = h + "</table>";
-    });
-
-    async function buscarFechamento() {
-        const id = document.getElementById('id2').value.trim();
-        const res = document.getElementById('res2');
-        if(!id) return;
-        res.innerHTML = "Buscando...";
-        try {
-            const r = await fetch(url2);
-            const t = await r.text();
-            const linhas = t.split("\n").map(l => l.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/));
-            const head = linhas[0].map(h => h.replace(/"/g, '').trim());
-            const idx = head.indexOf("ID do motorista");
-            const f = linhas.filter(l => l[idx] && l[idx].trim() === id);
-            if(f.length === 0) { res.innerHTML = "Não encontrado."; return; }
-            let h = "";
-            f.forEach(l => {
-                h += `<div class="card"><b>Loja:</b> ${l[head.indexOf("Loja / Ponto de Coleta")]}<br><b>Pacotes:</b> ${l[head.indexOf("Pacotes Coletados")]}</div>`;
-            });
-            res.innerHTML = h;
-        } catch(e) { res.innerHTML = "Erro."; }
     }
 
-    init();
+    async function buscarPlanejamento() {
+        const id = document.getElementById('idMotorista1').value.trim();
+        const resDiv = document.getElementById('resultadoPlan');
+        const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLptCJKIUDiCVR440Z6ZaJxzvRB1WJeCV36OJfnTQ2nBLECWjlZOqslbedcybCY-4cUQSDmNOCEx0U/pub?output=csv&gid=465492226";
+        if (!id) return;
+        resDiv.innerHTML = "<div class='loader'>Buscando...</div>";
+        try {
+            const resp = await fetch(url);
+            const data = parseCSV(await resp.text());
+            const filtrados = data.filter(row => row["ID do motorista"] === id);
+            if (filtrados.length === 0) { resDiv.innerHTML = "ID não encontrado."; return; }
+            let html = "<table class='table-res'><thead><tr><th>Loja</th><th>GPS</th></tr></thead><tbody>";
+            filtrados.forEach(row => {
+                const end = `${row["ENDEREÇO"]}, ${row["NUMERO"]} - ${row["BAIRRO"]}`;
+                html += `<tr><td><b>${row["Nome da Loja"]}</b><br><small>${end}</small></td>
+                <td><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(end)}" target="_blank" class="btn-mapa-sáb">📍 MAPA</a></td></tr>`;
+            });
+            resDiv.innerHTML = html + "</tbody></table>";
+        } catch (e) { resDiv.innerHTML = "Erro ao carregar."; }
+    }
+
+    async function buscarFechamentoSabado() {
+        const id = document.getElementById('idMotorista2').value.trim();
+        const resDiv = document.getElementById('resultadoFech');
+        const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLptCJKIUDiCVR440Z6ZaJxzvRB1WJeCV36OJfnTQ2nBLECWjlZOqslbedcybCY-4cUQSDmNOCEx0U/pub?gid=1606207890&single=true&output=csv";
+        if (!id) return;
+        resDiv.innerHTML = "<div class='loader'>Buscando...</div>";
+        try {
+            const resp = await fetch(url);
+            const data = parseCSV(await resp.text());
+            const filtrados = data.filter(row => row["ID do motorista"] === id);
+            if (filtrados.length === 0) { resDiv.innerHTML = "ID não encontrado."; return; }
+            let html = "";
+            filtrados.forEach(row => {
+                const end = row["Endereço Completo"];
+                html += `
+                    <div class="card-entrega">
+                        <span class="field-label">PONTO</span>
+                        <span class="field-value ponto-nome">${row["Loja / Ponto de Coleta"]}</span>
+                        <div style="display:flex; gap:10px; margin-top:10px;">
+                            <div style="flex:1;"><span class="field-label">VISITA</span><span class="field-value">${row["Horário de Visita Programado"] || "---"}</span></div>
+                            <div style="flex:1;"><span class="field-label">FECHA ÀS</span><span class="field-value">${row["Horário de Funcionamento até"] || "---"}</span></div>
+                        </div>
+                        <span class="field-label" style="margin-top:10px;">ENDEREÇO</span>
+                        <span class="field-value">${end}</span>
+                        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(end)}" target="_blank" class="btn-gps-link">📍 Abrir no GPS</a>
+                        <div class="pacotes-tag">Pacotes: ${row["Pacotes Coletados"] || "---"}</div>
+                    </div>`;
+            });
+            resDiv.innerHTML = html;
+        } catch (e) { resDiv.innerHTML = "Erro ao carregar."; }
+    }
 </script>
 </body>
 </html>
