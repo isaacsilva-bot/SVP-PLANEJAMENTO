@@ -7,41 +7,104 @@
     <style>
         :root { 
             --orange: #ff6a00; 
-            --dark-orange: #d45600; /* Escurecido para melhor leitura */
+            --dark-orange: #d45600; 
             --bg: #f5f7fa; 
-            --text: #222; /* Texto mais escuro para contraste */
+            --text: #1a1a1a; 
+            --green-bg: #d4edda;
+            --green-border: #28a745;
+            --green-text: #155724;
         }
         
         body { 
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0; 
             background: var(--bg); 
-            padding-top: 85px; /* Espaço para a barra no topo */
+            padding-top: 90px; /* Espaço para a barra no topo */
             color: var(--text); 
             -webkit-font-smoothing: antialiased; 
         }
 
         .container { padding: 15px; max-width: 600px; margin: auto; box-sizing: border-box; }
 
-        /* Formulário */
+        /* BARRA DE NAVEGAÇÃO SUPERIOR */
+        .tab-bar { 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            background: white; 
+            display: flex; 
+            height: 80px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+            z-index: 1000; 
+        }
+        
+        .tab-item { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 13px; 
+            color: #555; 
+            cursor: pointer; 
+            font-weight: 800; 
+            transition: all 0.2s ease;
+            text-align: center;
+            border-bottom: 5px solid transparent;
+        }
+
+        .tab-item i { font-style: normal; font-size: 24px; margin-bottom: 2px; }
+
+        .tab-item.active { 
+            background: #fff3eb;
+            color: var(--orange); 
+            border-bottom: 5px solid var(--orange);
+        }
+
+        /* CARD VERDE FLUTUANTE */
+        .info-card {
+            background: var(--green-bg);
+            border-left: 8px solid var(--green-border);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 10px 0 25px 0;
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.2);
+            animation: float-subtle 3s ease-in-out infinite;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 16px;
+            color: var(--green-text);
+            line-height: 1.5;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        @keyframes float-subtle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* FORMULÁRIO DE BUSCA */
         .search-box { 
             background: white; 
             padding: 20px; 
             border-radius: 15px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            margin-bottom: 20px; 
+            margin-bottom: 15px;
         }
         
         input { 
             width: 100%; 
             padding: 16px; 
             border-radius: 12px; 
-            border: 2px solid #ddd; 
+            border: 2px solid #ccc; 
             margin-bottom: 12px; 
             box-sizing: border-box; 
-            font-size: 18px; /* Fonte maior para leitura */
+            font-size: 18px; 
             font-weight: bold;
-            background: #fdfdfd; 
+            color: #000;
         }
         
         button { 
@@ -54,11 +117,11 @@
             font-weight: 900; 
             font-size: 18px; 
             cursor: pointer; 
-            text-transform: uppercase; 
-            box-shadow: 0 4px 12px rgba(255,106,0,0.3); 
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(255,106,0,0.3);
         }
 
-        /* Cards Profissionais */
+        /* CARDS DE RESULTADO */
         .card-entrega { 
             background: white; 
             padding: 20px; 
@@ -79,76 +142,11 @@
             margin-bottom: 12px; 
         }
         
-        .field-label { 
-            font-size: 12px; 
-            color: var(--dark-orange); 
-            text-transform: uppercase; 
-            font-weight: 800; 
-            display: block; 
-            margin-bottom: 2px;
-        }
+        .field-label { font-size: 12px; color: var(--dark-orange); text-transform: uppercase; font-weight: 800; display: block; }
+        .field-value { font-size: 18px; color: #000; font-weight: 700; margin-bottom: 15px; display: block; line-height: 1.3; }
+        .ponto-nome { font-size: 22px; color: #000; font-weight: 900; }
         
-        .field-value { 
-            font-size: 17px; 
-            color: #000; 
-            font-weight: 700; 
-            margin-bottom: 15px; 
-            display: block; 
-            line-height: 1.3;
-        }
-        
-        .ponto-nome { font-size: 20px; color: #000; font-weight: 900; }
-        
-        .btn-gps-link { 
-            color: #0056b3; /* Cor padrão de link para melhor reconhecimento */
-            text-decoration: underline; 
-            font-weight: 800; 
-            font-size: 16px; 
-            display: flex; 
-            align-items: center; 
-            gap: 5px; 
-            margin-top: 10px; 
-        }
-
-        /* BARRA DE NAVEGAÇÃO NO TOPO */
-        .tab-bar { 
-            position: fixed; 
-            top: 0; /* Movido para o topo */
-            width: 100%; 
-            background: white; 
-            display: flex; 
-            height: 80px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
-            z-index: 1000; 
-        }
-        
-        .tab-item { 
-            flex: 1; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 14px; 
-            color: #555; 
-            cursor: pointer; 
-            font-weight: 800; 
-            transition: all 0.2s ease;
-            text-align: center;
-            padding: 5px;
-            border-bottom: 4px solid transparent;
-        }
-
-        .tab-item i { 
-            font-style: normal; 
-            font-size: 24px; 
-            margin-bottom: 2px; 
-        }
-
-        .tab-item.active { 
-            background: #fff3eb;
-            color: var(--orange); 
-            border-bottom: 4px solid var(--orange);
-        }
+        .btn-gps-link { color: #0056b3; font-weight: 800; font-size: 16px; display: flex; align-items: center; gap: 5px; margin-top: 10px; text-decoration: underline; }
 
         .hidden { display: none; }
         .loader { text-align: center; padding: 40px; color: #222; font-weight: bold; font-size: 18px; }
@@ -159,32 +157,44 @@
     <nav class="tab-bar">
         <div class="tab-item active" id="btnPlan" onclick="switchTab('plan')">
             <i>📅</i>
-            <span>PLANEJAMENTO DE SÁBADO</span>
+            <span>PLANEJAMENTO</span>
         </div>
         <div class="tab-item" id="btnFech" onclick="switchTab('fech')">
             <i>🏬</i>
-            <span>FECHAMENTO DE PONTO DE COLETA/AGENCIA</span>
+            <span>FECHAMENTO</span>
         </div>
     </nav>
 
     <div id="aba-plan">
         <div class="container">
-            <h2 style="text-align:center; font-size: 18px;">Planejamento de Sábado</h2>
+            <h2 style="text-align:center; font-size: 18px; margin-top: 0;">Planejamento de Sábado</h2>
+            
             <div class="search-box">
                 <input type="number" id="idMotorista1" placeholder="Digite seu ID...">
-                <button onclick="buscarPlanejamento()">CONSULTAR PLANEJAMENTO DE SÁBADO</button>
+                <button onclick="buscarPlanejamento()">CONSULTAR MEU ID</button>
             </div>
+
+            <div class="info-card">
+                <p>🟢 <strong>IMPORTANTE:</strong> Visite o ponto apenas no horário agendado para que nenhum pacote seja deixado para trás. Pontualidade evita pendências e garante sua performance.</p>
+            </div>
+
             <div id="resultadoPlan"></div>
         </div>
     </div>
 
     <div id="aba-fech" class="hidden">
         <div class="container">
-            <h2 style="text-align:center; font-size: 18px;">Fechamento de Agência Shopee</h2>
+            <h2 style="text-align:center; font-size: 18px; margin-top: 0;">Fechamento de Ponto</h2>
+            
             <div class="search-box">
                 <input type="number" id="idMotorista2" placeholder="Digite seu ID...">
-                <button onclick="buscarFechamentoSabado()">CONSULTAR PONTO A SEREM FECHADOS</button>
+                <button onclick="buscarFechamentoSabado()">CONSULTAR MEU ID</button>
             </div>
+
+            <div class="info-card">
+                <p>🟢 <strong>IMPORTANTE:</strong> Visite o ponto apenas no horário agendado para que nenhum pacote seja deixado para trás. Pontualidade evita pendências e garante sua performance.</p>
+            </div>
+
             <div id="resultadoFech"></div>
         </div>
     </div>
@@ -215,12 +225,12 @@
         const resDiv = document.getElementById('resultadoPlan');
         const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLptCJKIUDiCVR440Z6ZaJxzvRB1WJeCV36OJfnTQ2nBLECWjlZOqslbedcybCY-4cUQSDmNOCEx0U/pub?output=csv&gid=465492226";
         if (!id) return;
-        resDiv.innerHTML = "<div class='loader'>Buscando sua Rota deste Sábado...</div>";
+        resDiv.innerHTML = "<div class='loader'>Buscando informações...</div>";
         try {
             const resp = await fetch(url);
             const data = parseCSV(await resp.text());
             const filtrados = data.filter(row => row["ID do motorista"] === id);
-            if (filtrados.length === 0) { resDiv.innerHTML = "<div class='card-entrega'>❌ ID não localizado.</div>"; return; }
+            if (filtrados.length === 0) { resDiv.innerHTML = "<div class='card-entrega'>❌ ID não localizado no planejamento.</div>"; return; }
             let html = "";
             filtrados.forEach(row => {
                 const end = `${row["ENDEREÇO"]}, ${row["NUMERO"]} - ${row["BAIRRO"]}`;
@@ -232,7 +242,7 @@
                 </div>`;
             });
             resDiv.innerHTML = html;
-        } catch (e) { resDiv.innerHTML = "Erro de conexão."; }
+        } catch (e) { resDiv.innerHTML = "Erro ao conectar com a planilha."; }
     }
 
     async function buscarFechamentoSabado() {
@@ -240,12 +250,12 @@
         const resDiv = document.getElementById('resultadoFech');
         const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLptCJKIUDiCVR440Z6ZaJxzvRB1WJeCV36OJfnTQ2nBLECWjlZOqslbedcybCY-4cUQSDmNOCEx0U/pub?gid=1606207890&single=true&output=csv";
         if (!id) return;
-        resDiv.innerHTML = "<div class='loader'>Buscando os pontos que você fechará neste sábado...</div>";
+        resDiv.innerHTML = "<div class='loader'>Buscando informações...</div>";
         try {
             const resp = await fetch(url);
             const data = parseCSV(await resp.text());
             const filtrados = data.filter(row => row["ID do motorista"] === id);
-            if (filtrados.length === 0) { resDiv.innerHTML = "<div class='card-entrega'>❌ ID não localizado.</div>"; return; }
+            if (filtrados.length === 0) { resDiv.innerHTML = "<div class='card-entrega'>❌ ID não localizado no fechamento.</div>"; return; }
             let html = "";
             filtrados.forEach(row => {
                 html += `<div class="card-entrega">
@@ -257,11 +267,11 @@
                     </div>
                     <span class="field-label">ENDEREÇO</span><span class="field-value">${row["Endereço Completo"]}</span>
                     <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(row["Endereço Completo"])}" target="_blank" class="btn-gps-link">📍 ABRIR NO GOOGLE MAPS</a>
-                    <div style="background:#fff5ed; color:var(--dark-orange); padding:15px; border-radius:10px; text-align:center; font-weight:900; border:2px dashed var(--orange); margin-top:10px; font-size:18px;">Pacotes: ${row["Pacotes Coletados"] || "---"}</div>
+                    <div style="background:#fff5ed; color:var(--dark-orange); padding:15px; border-radius:10px; text-align:center; font-weight:900; border:2px dashed var(--orange); margin-top:10px; font-size:20px;">📦 Pacotes: ${row["Pacotes Coletados"] || "---"}</div>
                 </div>`;
             });
             resDiv.innerHTML = html;
-        } catch (e) { resDiv.innerHTML = "Erro de conexão."; }
+        } catch (e) { resDiv.innerHTML = "Erro ao buscar seu ID. Por favor, contacte o Analista Isaac Maia ou fale com seu analista direto."; }
     }
 </script>
 </body>
