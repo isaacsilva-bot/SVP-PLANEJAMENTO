@@ -138,7 +138,7 @@
 
     function renderPlan(dados, div) {
         if (dados.length === 0) { div.innerHTML = "<div class='card-entrega'>Nenhum planejamento para este ID.</div>"; return; }
-        let html = `<div class="resumo-topo">${dados.length} Entregas no Planejamento</div>`;
+        let html = `<div class="resumo-topo">${dados.length} Lojas para Visitar (Baixa no raio)</div>`;
         dados.forEach(row => {
             const end = `${row["ENDEREÇO"]}, ${row["NUMERO"]} - ${row["BAIRRO"]}`;
             html += `<div class="card-entrega">
@@ -153,7 +153,7 @@
 
     function renderFech(dados, div) {
         if (dados.length === 0) { div.innerHTML = "<div class='card-entrega'>Nenhum fechamento para este ID.</div>"; return; }
-        let html = `<div class="resumo-topo">${dados.length} Fechamentos no Roteiro</div>`;
+        let html = `<div class="resumo-topo">${dados.length} Fechamentos na sua rota (Visite no horário)</div>`;
         dados.forEach(row => {
             html += `<div class="card-entrega">
                 <div class="rota-badge">ROTA: ${row["ROTA"] || "FECH"}</div>
