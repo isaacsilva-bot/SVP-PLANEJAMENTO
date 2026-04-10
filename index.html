@@ -5,223 +5,125 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SVP Planejamento</title>
     <style>
-        :root {
-            --primary-orange: #ff6a00;
-            --dark-orange: #e65c00;
-            --light-orange: #fff5ed;
-        }
+        :root { --primary-orange: #ff6a00; --dark-orange: #e65c00; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; padding-bottom: 70px; }
+        
+        /* Abas */
+        .tab-content { display: none; padding: 10px; }
+        .tab-content.active { display: block; }
+        
+        /* Navegação */
+        .tab-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: white; display: flex; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+        .tab-item { flex: 1; padding: 15px 5px; text-align: center; color: #666; cursor: pointer; font-size: 12px; font-weight: bold; border-top: 3px solid transparent; }
+        .tab-item.active { color: var(--primary-orange); border-top: 3px solid var(--primary-orange); background: #fff5ed; }
 
-        body {
-            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            padding-bottom: 70px; /* Espaço para as abas */
-        }
+        /* Estilos específicos */
+        header { background: #ff6a00; padding: 15px; text-align: center; color: white; font-weight: bold; margin-bottom: 10px; }
+        input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 10px; box-sizing: border-box; font-size: 16px; }
+        button { width: 100%; padding: 15px; background: var(--primary-orange); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
+        
+        /* Tabela Aba 1 */
+        table { width: 100%; border-collapse: collapse; font-size: 12px; background: white; }
+        th, td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
+        .btn-maps { background: #ff6a00; color: white; padding: 6px 10px; border-radius: 6px; text-decoration: none; display: inline-block; }
 
-        /* Controle de Visualização das Abas */
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Menu de Navegação Inferior */
-        .tab-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: white;
-            display: flex;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-
-        .tab-item {
-            flex: 1;
-            padding: 12px 5px;
-            text-align: center;
-            color: #666;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            border-top: 3px solid transparent;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .tab-item.active {
-            color: var(--primary-orange);
-            border-top: 3px solid var(--primary-orange);
-            background-color: var(--light-orange);
-        }
-
-        /* --- ESTILOS DA ABA 1 --- */
-        header.aba1-header { background: #ff6a00; padding: 20px 10px; text-align: center; }
-        .logo { width: 260px; max-width: 95%; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
-        .container { padding: 10px; max-width: 600px; margin: auto; }
-        .input-aba1 { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 10px; font-size: 14px; box-sizing: border-box; }
-        table { width: 100%; border-collapse: collapse; font-size: 11px; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        th { background: #eee; text-align: left; padding: 8px; }
-        td { padding: 8px; border-bottom: 1px solid #eee; }
-        .btn-maps { background: #ff6a00; color: white; padding: 5px 8px; border-radius: 6px; text-decoration: none; font-size: 14px; }
-        .vazio { text-align: center; margin-top: 20px; color: #666; padding: 20px; }
-
-        /* --- ESTILOS DA ABA 2 --- */
-        .header-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .img-banner { width: 100%; display: block; max-height: 200px; object-fit: cover; }
-        .search-content { padding: 20px; text-align: center; }
-        .input-aba2 { width: 100%; padding: 15px; margin: 10px 0; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; font-size: 16px; outline: none; }
-        .btn-aba2 { width: 100%; padding: 15px; background-color: var(--primary-orange); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
-        .card-entrega { background: white; padding: 20px; margin-bottom: 15px; border-radius: 18px; border-left: 8px solid var(--primary-orange); box-shadow: 0 6px 12px rgba(0,0,0,0.05); }
-        .label { font-size: 10px; color: var(--primary-orange); text-transform: uppercase; font-weight: 800; display: block; }
-        .valor { font-size: 15px; color: #222; font-weight: 500; margin-bottom: 10px; display: block; }
-        .pacotes-tag { background: var(--light-orange); color: var(--dark-orange); padding: 12px; border-radius: 10px; text-align: center; font-weight: bold; border: 1px dashed var(--primary-orange); }
-        .btn-mapa-link { display: inline-block; margin-top: 5px; color: var(--primary-orange); text-decoration: none; font-size: 14px; font-weight: bold; }
+        /* Card Aba 2 */
+        .card-entrega { background: white; padding: 15px; margin-bottom: 15px; border-radius: 15px; border-left: 6px solid var(--primary-orange); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .label { font-size: 10px; color: var(--primary-orange); text-transform: uppercase; font-weight: bold; }
+        .valor { font-size: 14px; margin-bottom: 8px; display: block; }
     </style>
 </head>
 <body>
 
-    <div id="planejamento" class="tab-content active">
-        <header class="aba1-header">
-            <img src="logo.png" class="logo" alt="Logo">
-        </header>
-        <div class="container">
-            <input type="text" id="idMotorista" class="input-aba1" placeholder="Digite seu ID para Planejamento...">
-            <div id="resultadoPlanejamento"></div>
-        </div>
+    <div id="aba1" class="tab-content active">
+        <header>Planejamento de Sábado</header>
+        <input type="text" id="idMotorista1" placeholder="Digite seu ID...">
+        <div id="res1"></div>
     </div>
 
-    <div id="fechamento" class="tab-content">
-        <div class="container">
-            <div class="header-card">
-                <img src="empresa.jpg" alt="Banner Empresa" class="img-banner">
-                <div class="search-content">
-                    <h2 style="color: var(--dark-orange); margin: 0 0 10px 0; font-size: 20px;">Portal de Fechamento de Ponto</h2>
-                    <input type="text" id="inputID" class="input-aba2" placeholder="Digite seu ID para Fechamento">
-                    <button class="btn-aba2" onclick="consultarFechamento()">Ver Roteiro</button>
-                </div>
-            </div>
-            <div id="resultadoFechamento"></div>
-        </div>
+    <div id="aba2" class="tab-content">
+        <header>Fechamento de Pontos</header>
+        <input type="text" id="idMotorista2" placeholder="Digite seu ID...">
+        <button onclick="buscarAba2()">Consultar</button>
+        <div id="res2"></div>
     </div>
 
-    <div class="tab-bar">
-        <div class="tab-item active" onclick="switchTab('planejamento', this)">
-            <span>📋</span> Planejamento de sábado
-        </div>
-        <div class="tab-item" onclick="switchTab('fechamento', this)">
-            <span>🏬</span> Fechamento de pontos
-        </div>
-    </div>
+    <nav class="tab-bar">
+        <div class="tab-item active" onclick="switchTab('aba1', this)">📅 Planejamento</div>
+        <div class="tab-item" onclick="switchTab('aba2', this)">🏬 Fechamento</div>
+    </nav>
 
 <script>
-    // --- NAVEGAÇÃO ENTRE ABAS ---
-    function switchTab(tabId, el) {
+    function switchTab(id, el) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.tab-item').forEach(i => i.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
+        document.getElementById(id).classList.add('active');
         el.classList.add('active');
-        window.scrollTo(0,0);
     }
 
-    // --- LÓGICA ABA 1: PLANEJAMENTO ---
-    const urlPlan = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLptCJKIUDiCVR440Z6ZaJxzvRB1WJeCV36OJfnTQ2nBLECWjlZOqslbedcybCY-4cUQSDmNOCEx0U/pub?output=csv&gid=465492226";
-    let dadosPlan = [];
+    // --- LOGICA ABA 1 ---
+    const url1 = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLptCJKIUDiCVR440Z6ZaJxzvRB1WJeCV36OJfnTQ2nBLECWjlZOqslbedcybCY-4cUQSDmNOCEx0U/pub?output=csv&gid=465492226";
+    let dados1 = [];
 
-    function parseCSVPlan(texto) {
-        const linhas = texto.split("\n");
+    async function carregarAba1() {
+        const res = await fetch(url1);
+        const txt = await res.text();
+        const linhas = txt.split("\n");
         const headers = linhas[0].split(",");
-        return linhas.slice(1).map(linha => {
-            const colunas = linha.split(",");
+        dados1 = linhas.slice(1).map(l => {
+            const cols = l.split(",");
             let obj = {};
-            headers.forEach((h, i) => obj[h.trim()] = colunas[i]);
+            headers.forEach((h, i) => obj[h.trim()] = cols[i]);
             return obj;
         });
     }
 
-    async function carregarDadosPlan() {
-        try {
-            const res = await fetch(urlPlan);
-            const texto = await res.text();
-            dadosPlan = parseCSVPlan(texto);
-        } catch (e) { console.error("Erro ao carregar planejamento"); }
-    }
-
-    function buscarPlan() {
-        const id = document.getElementById("idMotorista").value.trim();
-        const div = document.getElementById("resultadoPlanejamento");
-        if (!id) { div.innerHTML = "<p class='vazio'>Digite seu ID</p>"; return; }
-
-        const filtrado = dadosPlan.filter(d => d["ID do motorista"] === id);
-        if (filtrado.length === 0) {
-            div.innerHTML = "<p class='vazio'>Você não possui rota neste sábado ou digitou o ID errado. Verifique novamente ou informe ao seu analista.</p>";
-            return;
-        }
-
-        let html = `<table><thead><tr><th>Loja</th><th>Endereço</th><th>Bairro</th><th></th></tr></thead><tbody>`;
+    document.getElementById("idMotorista1").addEventListener("input", function() {
+        const id = this.value.trim();
+        const resDiv = document.getElementById("res1");
+        const filtrado = dados1.filter(d => d["ID do motorista"] === id);
+        
+        if(filtrado.length === 0) { resDiv.innerHTML = "<p>Nenhum resultado.</p>"; return; }
+        
+        let html = "<table><tr><th>Loja</th><th>Ações</th></tr>";
         filtrado.forEach(r => {
-            const end = `${r["ENDEREÇO"]}, ${r["NUMERO"]} - ${r["BAIRRO"]}`;
-            html += `<tr>
-                <td>${r["Nome da Loja"] || ""}</td>
-                <td>${r["ENDEREÇO"] || ""}, ${r["NUMERO"] || ""}</td>
-                <td>${r["BAIRRO"] || ""}</td>
-                <td><a class="btn-maps" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(end)}" target="_blank">📍</a></td>
-            </tr>`;
+            const local = `${r["ENDEREÇO"]}, ${r["NUMERO"]} ${r["BAIRRO"]}`;
+            const link = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(local)}`;
+            html += `<tr><td>${r["Nome da Loja"]}</td><td><a class="btn-maps" href="${link}" target="_blank">Abrir GPS</a></td></tr>`;
         });
-        html += `</tbody></table>`;
-        div.innerHTML = html;
+        resDiv.innerHTML = html + "</table>";
+    });
+
+    // --- LOGICA ABA 2 ---
+    async function buscarAba2() {
+        const id = document.getElementById("idMotorista2").value.trim();
+        const resDiv = document.getElementById("res2");
+        const url2 = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLptCJKIUDiCVR440Z6ZaJxzvRB1WJeCV36OJfnTQ2nBLECWjlZOqslbedcybCY-4cUQSDmNOCEx0U/pub?gid=1606207890&single=true&output=csv";
+        
+        resDiv.innerHTML = "Buscando...";
+        const res = await fetch(url2);
+        const txt = await res.text();
+        const linhas = txt.split(/\r?\n/).map(l => l.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/));
+        const cabecalho = linhas[0].map(c => c.replace(/"/g, '').trim());
+        const idxID = cabecalho.indexOf("ID do motorista");
+        const filtrados = linhas.filter(l => l[idxID] === id);
+
+        if(filtrados.length === 0) { resDiv.innerHTML = "ID não encontrado."; return; }
+
+        let html = "";
+        filtrados.forEach(d => {
+            html += `<div class="card-entrega">`;
+            cabecalho.forEach((col, i) => {
+                if(["Loja / Ponto de Coleta", "Endereço Completo", "Pacotes Coletados"].includes(col)) {
+                    html += `<span class="label">${col}</span><span class="valor">${d[i]}</span>`;
+                }
+            });
+            html += `</div>`;
+        });
+        resDiv.innerHTML = html;
     }
 
-    // --- LÓGICA ABA 2: FECHAMENTO ---
-    async function consultarFechamento() {
-        const idBuscado = document.getElementById('inputID').value.trim();
-        const display = document.getElementById('resultadoFechamento');
-        const urlFech = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLptCJKIUDiCVR440Z6ZaJxzvRB1WJeCV36OJfnTQ2nBLECWjlZOqslbedcybCY-4cUQSDmNOCEx0U/pub?gid=1606207890&single=true&output=csv";
-
-        if (!idBuscado) return;
-        display.innerHTML = "<p style='text-align:center;'>Buscando...</p>";
-
-        try {
-            const response = await fetch(urlFech);
-            const csvText = await response.text();
-            const linhas = csvText.split(/\r?\n/).map(l => l.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim()));
-            
-            const cabecalho = linhas[0];
-            const idxID = cabecalho.indexOf("ID do motorista");
-            const meusRegistros = linhas.filter(l => l[idxID] === idBuscado);
-
-            if (meusRegistros.length > 0) {
-                let html = `<div style="text-align:center; font-weight:bold; color:#666; margin:15px 0;">${meusRegistros.length} FECHAMENTOS PROGRAMADOS</div>`;
-                meusRegistros.forEach(dados => {
-                    html += `<div class="card-entrega">`;
-                    cabecalho.forEach((col, i) => {
-                        const valor = dados[i] || '---';
-                        if (col === "Loja / Ponto de Coleta") {
-                            html += `<span class="label">Ponto</span><span class="valor" style="color:var(--dark-orange); font-weight:bold;">${valor}</span>`;
-                        } else if (col === "Endereço Completo") {
-                            html += `<span class="label">Endereço</span><span class="valor">${valor}</span>
-                                     <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(valor)}" target="_blank" class="btn-mapa-link">📍 Abrir no GPS</a>`;
-                        } else if (col === "Pacotes Coletados") {
-                            html += `<div class="pacotes-tag">Pacotes: ${valor}</div>`;
-                        } else if (["Horário de Visita Programado", "Horário de Funcionamento até"].includes(col)) {
-                            html += `<span class="label">${col}</span><span class="valor">${valor}</span>`;
-                        }
-                    });
-                    html += `</div>`;
-                });
-                display.innerHTML = html;
-            } else {
-                display.innerHTML = "<p style='text-align:center; color:red; font-weight:bold; padding:20px;'>ID não encontrado.</p>";
-            }
-        } catch (e) {
-            display.innerHTML = "<p style='text-align:center; padding:20px;'>Erro de conexão.</p>";
-        }
-    }
-
-    // Inicialização
-    document.getElementById("idMotorista").addEventListener("input", buscarPlan);
-    carregarDadosPlan();
+    carregarAba1();
 </script>
 </body>
 </html>
