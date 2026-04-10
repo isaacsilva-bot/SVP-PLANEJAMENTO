@@ -235,7 +235,7 @@
             const resp = await fetch(url);
             const data = parseCSV(await resp.text());
             const filtrados = data.filter(row => row["ID do motorista"] === id);
-            if (filtrados.length === 0) { resDiv.innerHTML = "<div class='card-entrega'>❌ Não localizei seu ID. Tente novamente ou fale com seu analista direto.</div>"; return; }
+            if (filtrados.length === 0) { resDiv.innerHTML = "<div class='card-entrega'>❌ Não localizei seu ID. Talvez você não tenha agencia Shopee em sua rota. Verifique com o seu analista, por favor..</div>"; return; }
             let html = "";
             filtrados.forEach(row => {
                 html += `<div class="card-entrega">
